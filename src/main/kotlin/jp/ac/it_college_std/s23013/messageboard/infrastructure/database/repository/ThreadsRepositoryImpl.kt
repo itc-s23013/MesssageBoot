@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class ThreadsRepositoryImpl : ThreadsRepository {
-    override fun createThread(thread: Threads) {
+    override fun createThread(thread: Threads): Threads {
         return transaction {
             val newthread = ThreadsEntitiy.new{
                 title = thread.title
@@ -24,6 +24,7 @@ class ThreadsRepositoryImpl : ThreadsRepository {
                 updatedAt = thread.updateAt
                 deleted = thread.deleted
             }
+            newthread.toTread()
         }
     }
 
