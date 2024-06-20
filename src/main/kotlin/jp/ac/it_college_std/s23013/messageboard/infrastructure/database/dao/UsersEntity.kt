@@ -1,6 +1,7 @@
 package jp.ac.it_college_std.s23013.messageboard.infrastructure.database.dao
 
 import jp.ac.it_college_std.s23013.messageboard.domain.model.Users
+import jp.ac.it_college_std.s23013.messageboard.presentation.form.UserInfo
 import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -20,4 +21,9 @@ class UsersEntity (id: EntityID<Long>) : LongEntity(id) {
             password
         )
     }
+
+    fun toUserInfo() = UserInfo(
+        id = id.value,
+        viewName = viewName
+    )
 }
