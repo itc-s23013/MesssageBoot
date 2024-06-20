@@ -1,6 +1,6 @@
 package jp.ac.it_college_std.s23013.messageboard.domain.model
 
-import java.time.LocalDateTime
+import kotlinx.datetime.LocalDateTime
 
 data class Threads(
     val id: Long,
