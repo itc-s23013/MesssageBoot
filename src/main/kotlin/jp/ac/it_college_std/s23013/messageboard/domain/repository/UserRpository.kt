@@ -7,4 +7,10 @@ interface UserRpository {
     fun findByEmail(email: String): Users?
 
     fun findById(id: Long): Users?
+
+    fun createUser(user: Users): Users
+
+    fun updateUser(user: Users): Users
+
+    fun deleteUser(user: Long)
 }
