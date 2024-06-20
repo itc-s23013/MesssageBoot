@@ -10,5 +10,4 @@ object MessageTable: LongIdTable("massage"){
     val postedAt = datetime("posted_at")
     val updateAt = datetime("updated_at")
     val deleted = bool("deleted").default(false)
-
 }

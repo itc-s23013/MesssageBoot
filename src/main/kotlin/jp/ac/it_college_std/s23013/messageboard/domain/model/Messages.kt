@@ -1,8 +1,8 @@
 package jp.ac.it_college_std.s23013.messageboard.domain.model
 
-import java.time.LocalDateTime
+import kotlinx.datetime.LocalDateTime
 
-data class Message(
+data class Messages(
     val id: Long,
     val threadId: Long,
     val userId: Long,
