@@ -5,11 +5,10 @@ import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 
+class MessageEntity(id: EntityID<Long>) : LongEntity(id) {
+    companion object : LongEntityClass<MessageEntity>(MessageTable)
 
-class MessagesEntity(id: EntityID<Long>) : LongEntity(id) {
-    companion object : LongEntityClass<MessagesEntity>(MessageTable)
-
-    var threadId by ThreadsEntity referencedOn MessageTable.threadId
+    var threadId by ThreadsEntitiy referencedOn MessageTable.threadId
     var userId by UsersEntity referencedOn MessageTable.userId
     var message by MessageTable.message
     var postedAt by MessageTable.postedAt

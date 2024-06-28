@@ -1,9 +1,9 @@
-package jp.ac.it_college.std.s23013.messageboard.presentation.controller
+package jp.ac.it_college_std.s23013.messageboard.presentation.controller
 
 import jp.ac.it_college_std.s23013.messageboard.application.service.UserService
 import jp.ac.it_college_std.s23013.messageboard.application.security.MessageBoardUserDetails
-import jp.ac.it_college.std.s23013.messageboard.presentation.form.GetUserInfoResponse
-import jp.ac.it_college.std.s23013.messageboard.presentation.form.PostUserRegisterRequest
+import jp.ac.it_college_std.s23013.messageboard.presentation.form.GetUserInfoResponse
+import jp.ac.it_college_std.s23013.messageboard.presentation.form.PostUserRegisterRequest
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 

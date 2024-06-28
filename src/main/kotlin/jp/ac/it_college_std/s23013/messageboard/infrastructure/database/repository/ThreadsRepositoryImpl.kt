@@ -2,7 +2,7 @@ package jp.ac.it_college_std.s23013.messageboard.infrastructure.database.reposit
 
 import jp.ac.it_college_std.s23013.messageboard.domain.model.Threads
 import jp.ac.it_college_std.s23013.messageboard.domain.repository.ThreadsRepository
-import jp.ac.it_college_std.s23013.messageboard.infrastructure.database.dao.ThreadsEntity
+import jp.ac.it_college_std.s23013.messageboard.infrastructure.database.dao.ThreadsEntitiy
 import jp.ac.it_college_std.s23013.messageboard.infrastructure.database.dao.UsersEntity
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Repository
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository
 class ThreadsRepositoryImpl : ThreadsRepository {
     override fun createThread(thread: Threads): Threads {
         return transaction {
-            val newThread = ThreadsEntity.new {
+            val newThread = ThreadsEntitiy.new {
                 title = thread.title
                 userId = UsersEntity[thread.userId]
                 createdAt = thread.createAt
@@ -24,14 +24,14 @@ class ThreadsRepositoryImpl : ThreadsRepository {
 
     override fun getThreadById(id: Long): Threads? {
         return transaction {
-            val threadEntity = ThreadsEntity.findById(id)
+            val threadEntity = ThreadsEntitiy.findById(id)
             threadEntity?.toThread()
         }
     }
 
     override fun updateThread(thread: Threads): Threads {
         return transaction {
-            val threadEntity = ThreadsEntity.findById(thread.id)
+            val threadEntity = ThreadsEntitiy.findById(thread.id)
                 ?: throw IllegalArgumentException("Threads not found with id: ${thread.id}")
 
             threadEntity.apply {
@@ -47,7 +47,7 @@ class ThreadsRepositoryImpl : ThreadsRepository {
 
     override fun deleteThread(id: Long) {
         transaction {
-            ThreadsEntity.findById(id)?.delete()
+            ThreadsEntitiy.findById(id)?.delete()
         }
     }
 }

@@ -5,8 +5,8 @@ import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 
-class ThreadsEntity(id: EntityID<Long> ) : LongEntity(id) {
-    companion object : LongEntityClass<ThreadsEntity>(ThreadsTable)
+class ThreadsEntitiy(id: EntityID<Long> ) : LongEntity(id) {
+    companion object : LongEntityClass<ThreadsEntitiy>(ThreadsTable)
 
     var title by ThreadsTable.title
     var userId by UsersEntity referencedOn ThreadsTable.userId

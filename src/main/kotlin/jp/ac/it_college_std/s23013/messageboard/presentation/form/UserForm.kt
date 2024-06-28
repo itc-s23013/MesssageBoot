@@ -1,4 +1,4 @@
-package jp.ac.it_college.std.s23013.messageboard.presentation.form
+package jp.ac.it_college_std.s23013.messageboard.presentation.form
 
 import kotlinx.serialization.Serializable
 
