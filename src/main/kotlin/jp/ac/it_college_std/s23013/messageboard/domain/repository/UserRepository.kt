@@ -2,8 +2,7 @@ package jp.ac.it_college_std.s23013.messageboard.domain.repository
 
 import jp.ac.it_college_std.s23013.messageboard.domain.model.Users
 
-interface UserRpository {
-
+interface UserRepository {
     fun findByEmail(email: String): Users?
 
     fun findById(id: Long): Users?
@@ -12,5 +11,7 @@ interface UserRpository {
 
     fun updateUser(user: Users): Users
 
-    fun deleteUser(user: Long)
+    fun deleteUser(id: Long)
+
+    fun save(user: Users): Users
 }

@@ -1,4 +1,4 @@
-package jp.ac.it_college_std.s23013.messageboard.application.service.security
+package jp.ac.it_college_std.s23013.messageboard.application.service
 
 import jp.ac.it_college_std.s23013.messageboard.domain.model.Messages
 import jp.ac.it_college_std.s23013.messageboard.domain.repository.MessageRepository

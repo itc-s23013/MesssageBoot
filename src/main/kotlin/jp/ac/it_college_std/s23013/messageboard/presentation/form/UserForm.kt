@@ -1,18 +1,16 @@
-package jp.ac.it_college_std.s23013.messageboard.presentation.form
+package jp.ac.it_college.std.s23013.messageboard.presentation.form
 
-import jp.ac.it_college_std.s23013.messageboard.domain.model.Users
+import kotlinx.serialization.Serializable
 
-data class RegisterUserReqest(
+@Serializable
+data class PostUserRegisterRequest(
     val viewName: String,
     val email: String,
-    val password: String,
-){
-    fun toModel(): Users {
-        return Users(
-            id = 0L,
-            viewName,
-            email,
-            password
-        )
-    }
-}
+    val password: String
+)
+
+@Serializable
+data class GetUserInfoResponse(
+    val id: Long,
+    val viewName: String,
+)

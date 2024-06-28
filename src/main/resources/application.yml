@@ -1,10 +1,10 @@
 spring:
   application:
-    name: massage-board
+    name: massage_board
   datasource:
-    url: jdbc:mariadb://localhost:3306:/Message_Board
-    username: Message_Board
-    password: exposed
+    url: jdbc:mariadb://localhost:3306/message_board
+    username: root
+    password: foobarhogepiyo
     driver-class-name: org.mariadb.jdbc.Driver
   jackson:
     property-naming-strategy: SNAKE_CASE

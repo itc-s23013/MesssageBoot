@@ -2,52 +2,54 @@ package jp.ac.it_college_std.s23013.messageboard.infrastructure.database.reposit
 
 import jp.ac.it_college_std.s23013.messageboard.domain.model.Messages
 import jp.ac.it_college_std.s23013.messageboard.domain.repository.MessageRepository
-import jp.ac.it_college_std.s23013.messageboard.infrastructure.database.dao.MessageEntity
 import jp.ac.it_college_std.s23013.messageboard.infrastructure.database.dao.MessageTable
-import jp.ac.it_college_std.s23013.messageboard.infrastructure.database.dao.ThreadsEntitiy
+import jp.ac.it_college_std.s23013.messageboard.infrastructure.database.dao.MessagesEntity
+import jp.ac.it_college_std.s23013.messageboard.infrastructure.database.dao.ThreadsEntity
 import jp.ac.it_college_std.s23013.messageboard.infrastructure.database.dao.UsersEntity
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Repository
 
 @Repository
-class MessageRpositoryImpl : MessageRepository {
+class MessagesRepositoryImpl : MessageRepository {
     override fun createMessage(message: Messages): Messages {
         return transaction {
-            val newMessages = MessageEntity.new {
-                threadId = ThreadsEntitiy[message.threadId]
+            val newMessage = MessagesEntity.new {
+                threadId = ThreadsEntity[message.threadId]
                 userId = UsersEntity[message.userId]
                 this.message = message.message
                 postedAt = message.postedAt
+                updatedAt = message.updateAt
                 deleted = message.deleted
             }
-            newMessages.toMessage()
+            newMessage.toMessage()
         }
     }
 
-    override fun getMessage(id: Long): Messages? {
+    override fun getMessageById(id: Long): Messages? {
         return transaction {
-            val messageEntity = MessageEntity.findById(id)
-            messageEntity?.toMessage()
+            val message = MessagesEntity.findById(id)
+            message?.toMessage()
         }
     }
 
     override fun getMessageByThreadId(threadId: Long): List<Messages> {
         return transaction {
-            MessageEntity.find{
-                MessageTable.threadId eq threadId
-            }.map { it.toMessage() }
+            MessagesEntity.find { MessageTable.threadId eq threadId }
+                .map { it.toMessage() }
         }
     }
 
     override fun updateMessage(message: Messages): Messages {
         return transaction {
-            val messageEntity = MessageEntity.findById(message.id)
-                ?: throw IllegalArgumentException("更新箇所が見つかりません ${message.id}")
+            val messageEntity = MessagesEntity.findById(message.id)
+                ?: throw IllegalArgumentException("Message not found with id: ${message.id}")
+
             messageEntity.apply {
-                threadId = ThreadsEntitiy[message.threadId]
+                threadId = ThreadsEntity[message.threadId]
                 userId = UsersEntity[message.userId]
                 this.message = message.message
                 postedAt = message.postedAt
+                updatedAt = message.updateAt
                 deleted = message.deleted
             }
 
@@ -55,9 +57,9 @@ class MessageRpositoryImpl : MessageRepository {
         }
     }
 
-    override fun deletMessage(id: Long) {
+    override fun deleteMessage(id: Long) {
         transaction {
-            MessageEntity.findById(id)?.delete()
+            MessagesEntity.findById(id)?.delete()
         }
     }
 }

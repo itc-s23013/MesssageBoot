@@ -1,31 +1,46 @@
+/*
 package jp.ac.it_college_std.s23013.messageboard.presentation.form
 
 import kotlinx.datetime.LocalDateTime
-import jp.ac.it_college_std.s23013.messageboard.domain.model.Threads
+import kotlinx.serialization.Serializable
 
-data class GetThreadListResponse(
-    val threads: List<ThreadsInfo>
-)
+@Serializable
+data class GetThreadListResponse(val threadsList: List<ThreadInfo>)
 
-data class ThreadsInfo(
+@Serializable
+data class ThreadInfo(
     val id: Long,
     val title: String,
-    val createBy: UserInfo,
-    val createAt: LocalDateTime,
-    val updateAt: LocalDateTime,
-    val isDeleted: Boolean
-){
-    constructor(thread: Threads) : this(
-        thread.id,
-        thread.title,
-        UserInfo(thread.createBy.id, thread.createBy.viewName),
-        thread.createAt,
-        thread.updateAt,
-        thread.deleted
-    )
+    val createdAt: LocalDateTime
+) {
+    constructor(model: Thread) : this(model.id, model.title, model.createdAt)
 }
 
-data class UserInfo(
-    val id: Long,
-    val viewName: String
+@Serializable
+data class PostThreadRequest(
+    val title: String,
+    val message: String,
 )
+
+@Serializable
+data class CreatedThreadResponse(
+    val id: Long
+)
+
+@Serializable
+data class PutThreadUpdateRequest(
+    val title: String,
+)
+
+@Serializable
+data class ThreadUpdateResponse(
+    val id: Long,
+    val title: String,
+)
+
+@Serializable
+data class ThreadDeleteResponse(
+    val id: Long,
+    val title: String,
+    val updatedAt: LocalDateTime,
+)*/

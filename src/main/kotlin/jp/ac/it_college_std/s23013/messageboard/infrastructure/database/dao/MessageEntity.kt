@@ -5,14 +5,15 @@ import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 
-class MessageEntity (id: EntityID<Long>) : LongEntity(id) {
-    companion object : LongEntityClass<MessageEntity>(MessageTable)
 
-    var threadId by ThreadsEntitiy referencedOn MessageTable.threadId
+class MessagesEntity(id: EntityID<Long>) : LongEntity(id) {
+    companion object : LongEntityClass<MessagesEntity>(MessageTable)
+
+    var threadId by ThreadsEntity referencedOn MessageTable.threadId
     var userId by UsersEntity referencedOn MessageTable.userId
     var message by MessageTable.message
     var postedAt by MessageTable.postedAt
-    var updateAt by MessageTable.updateAt
+    var updatedAt by MessageTable.updateAt
     var deleted by MessageTable.deleted
 
     fun toMessage(): Messages {
@@ -22,7 +23,7 @@ class MessageEntity (id: EntityID<Long>) : LongEntity(id) {
             userId.id.value,
             message,
             postedAt,
-            updateAt,
+            updatedAt,
             deleted
         )
     }

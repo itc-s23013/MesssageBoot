@@ -1,19 +1,19 @@
 package jp.ac.it_college_std.s23013.messageboard.infrastructure.database.repository
 
 import jp.ac.it_college_std.s23013.messageboard.domain.model.Users
-import jp.ac.it_college_std.s23013.messageboard.domain.repository.UserRpository
+import jp.ac.it_college_std.s23013.messageboard.domain.repository.UserRepository
 import jp.ac.it_college_std.s23013.messageboard.infrastructure.database.dao.UsersEntity
 import jp.ac.it_college_std.s23013.messageboard.infrastructure.database.dao.UsersTable
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Repository
 
 @Repository
-class UserRpositoryImpl : UserRpository {
+class UserRepositoryImpl : UserRepository {
     override fun findByEmail(email: String): Users? {
         return transaction {
-            UsersEntity.find{
-                UsersTable.email eq email
-            }.singleOrNull()?.toUser()
+            UsersEntity.find { UsersTable.email eq email }
+                .singleOrNull()
+                ?.toUser()
         }
     }
 
@@ -25,31 +25,40 @@ class UserRpositoryImpl : UserRpository {
 
     override fun createUser(user: Users): Users {
         return transaction {
-            val newUsersEntity = UsersEntity.new {
-                this.viewName = user.viewName
+            UsersEntity.new {
                 this.email = user.email
                 this.password = user.password
-            }
-            newUsersEntity.toUser()
+                this.viewName = user.viewName
+            }.toUser()
         }
     }
 
     override fun updateUser(user: Users): Users {
         return transaction {
-            val usersEntity = UsersEntity.findById(user.id)
+            val userEntity = UsersEntity.findById(user.id)
                 ?: throw IllegalArgumentException("User not found with id: ${user.id}")
-
-            usersEntity.apply {
-                viewName = user.viewName
+            userEntity.apply {
                 email = user.email
+                password = user.password
+                viewName = user.viewName
             }
-            usersEntity.toUser()
+            userEntity.toUser()
         }
     }
 
     override fun deleteUser(id: Long) {
         transaction {
-            UsersEntity.findById(id)?.delete()
+            val userEntity = UsersEntity.findById(id)
+                ?: throw IllegalArgumentException("User not found with id: $id")
+            userEntity.delete()
+        }
+    }
+
+    override fun save(user: Users): Users {
+        return if (user.id == 0L) {
+            createUser(user)
+        } else {
+            updateUser(user)
         }
     }
 }
